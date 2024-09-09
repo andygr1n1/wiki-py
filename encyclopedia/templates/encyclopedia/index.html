@@ -1,16 +1,24 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Encyclopedia
+Encyclopedia
 {% endblock %}
 
 {% block body %}
-    <h1>All Pages</h1>
+<h1>All Pages</h1>
 
-    <ul>
-        {% for entry in entries %}
-            <li>{{ entry }}</li>
-        {% endfor %}
-    </ul>
+<ul>
+    {% for entry in entries %}
+    <li><a href="{% url 'entry' entry|lower %}">{{ entry|lower }}</a></li>
+    {% endfor %}
+</ul>
+
+<!-- <script>
+    // Log each entry to the console
+    const data = {{ entries| safe }};
+    data.forEach(entry => {
+        console.log(entry);
+    });
+</script> -->
 
 {% endblock %}
