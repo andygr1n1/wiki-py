@@ -1,4 +1,5 @@
 {% extends "encyclopedia/layout.html" %}
+{% load custom_filters %}
 
 {% block title %}
 Encyclopedia
@@ -8,7 +9,7 @@ Encyclopedia
 <h1>All Pages</h1>
 
 <ul>
-    {% for entry in entries %}
+    {% for entry in entries|sort %}
     <li><a href="{% url 'entry' entry|lower %}">{{ entry|lower }}</a></li>
     {% endfor %}
 </ul>

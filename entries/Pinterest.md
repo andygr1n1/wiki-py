@@ -1,4 +1,4 @@
-# Pinterest!
+# Pinterest
 
 **Pinterest** is a visual discovery and bookmarking platform that allows users to discover, save, and organize ideas in the form of "Pins" on themed boards. Pins typically consist of images, GIFs, or videos, often linked to external websites for more information or direct purchase.
 

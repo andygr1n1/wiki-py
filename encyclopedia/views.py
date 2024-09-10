@@ -22,10 +22,11 @@ def index(request):
     })
 
 def entry(request, title):
+    title = title.lower() 
     content = util.get_entry(title)
 
     if content:
-        return render(request, 'encyclopedia/entry.html', {'content': content, 'title': title})
+        return render(request, 'encyclopedia/entry.html', {'content': content, 'title': title.lower()})
     else:
         return HttpResponse("Page not found", status=404)
 
@@ -53,7 +54,7 @@ def new(request):
     if request.method == "POST":
         form = NewTaskForm(request.POST)
         if form.is_valid():
-            title = form.cleaned_data["title"]
+            title = form.cleaned_data["title"].lower()
             content = form.cleaned_data["content"]
             if util.get_entry(title):
                 return render(request, "encyclopedia/new.html", {
