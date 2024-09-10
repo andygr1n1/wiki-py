@@ -1,4 +1,5 @@
 import logging
+import random
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django import forms
@@ -8,6 +9,10 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 class NewTaskForm(forms.Form):
     title = forms.CharField(label="New Encyclopedia Title")
+    content = forms.CharField(label="New Encyclopedia Content   ")
+    # priority = forms.IntegerField(label="Priority", min_value=1, max_value=5)
+
+class EditTaskForm(forms.Form):
     content = forms.CharField(label="New Encyclopedia Content   ")
     # priority = forms.IntegerField(label="Priority", min_value=1, max_value=5)
 
@@ -32,7 +37,7 @@ def search(request):
     else:
         entries = util.list_entries()
         filtered_entries = [entry for entry in entries if q.lower() in entry.lower()]
-        logging.info(f"Content for entries '{filtered_entries}'")   
+        # logging.info(f"Content for entries '{filtered_entries}'")   
         return render(request, 'encyclopedia/search.html', {'entries': filtered_entries})
 
 # def new(request):
@@ -65,4 +70,52 @@ def new(request):
     else:
         return render(request, "encyclopedia/new.html", {
             "form": NewTaskForm()
+        })
+    
+
+def edit(request, title):
+    if request.method == "POST":
+        form = EditTaskForm(request.POST)
+       
+        if form.is_valid():
+            content = form.cleaned_data["content"]
+            logging.info(f"form::: '{content}'")   
+            if content.strip():
+                util.save_entry(title, content)
+                return redirect('entry', title=title)
+            else:
+                form.add_error('content', 'Content cannot be empty.')
+        return render(request, "encyclopedia/edit.html", {
+            "form": form,
+            "title": title
+        })
+    else:
+        logging.info(f"form>>> get request ")   
+        content = util.get_entry(title)
+        if content is None:
+            return render(request, "encyclopedia/error.html", {
+                "message": "The requested page was not found."
+            })
+        form = NewTaskForm(initial={"title": title, "content": content})
+        return render(request, "encyclopedia/edit.html", {
+            "form": form,
+            "title": title
+        })
+    
+def random_page(request):
+    entries = util.list_entries()
+    if entries:
+        current_title = request.GET.get('current_title')
+        logging.info(f"current_title::: '{current_title}'")
+        if current_title:
+            entries = [entry for entry in entries if entry.lower() != current_title.lower()]
+        if not entries:
+            return render(request, "encyclopedia/error.html", {
+                "message": "No other entries found."
+            })
+        random_entry = random.choice(entries)
+        return redirect('entry', title=random_entry)
+    else:
+        return render(request, "encyclopedia/error.html", {
+            "message": "No entries found."
         })
