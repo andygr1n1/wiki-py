@@ -1,4 +1,5 @@
 {% extends "encyclopedia/layout.html" %}
+{% load markdown_extras %}
 
 {% block title %}
 {{ title }}
@@ -7,5 +8,5 @@
 {% block body %}
 <h1>{{ title }}</h1>
 
-<article>{{ content|safe }}</article>
+<article>{{ content|markdown|safe }}</article>
 {% endblock %}

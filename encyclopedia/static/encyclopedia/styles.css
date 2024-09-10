@@ -7,11 +7,15 @@ code {
     white-space: pre;
 }
 
-/* 
+.row-stabilizer {
+    width: calc(100%) !important;
+}
+
 h1 {
+    color: blueviolet;
     margin-top: 0px;
     padding-top: 20px;
-} */
+}
 
 textarea {
     height: 90vh;
