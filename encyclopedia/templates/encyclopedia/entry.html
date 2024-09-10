@@ -9,5 +9,5 @@
 <h1>{{ title }}</h1>
 
 <article>{{ content|markdown|safe }}</article>
-<footer><a href="{% url 'edit' title %}">edit article</a></footer>
+<footer><a href="{% url 'encyclopedia:edit' title %}">edit article</a></footer>
 {% endblock %}

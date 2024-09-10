@@ -10,7 +10,7 @@ Encyclopedia
 <h1>All Results ({{ entries|length }})</h1>
 <ul>
     {% for entry in entries %}
-    <li><a href="{% url 'entry' entry|lower %}">{{ entry|lower }}</a></li>
+    <li><a href="{% url 'encyclopedia:entry' entry|lower %}">{{ entry|lower }}</a></li>
     {% endfor %}
 </ul>
 {% else %}

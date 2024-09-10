@@ -12,7 +12,7 @@ Create New Page
 {% endif %}
 <h1>Create New Page</h1>
 
-<form action="{% url 'new' %}" method="post">
+<form action="{% url 'encyclopedia:new' %}" method="post">
     {% csrf_token %}
     <div class="form-group">
         <label for="title">Title</label>

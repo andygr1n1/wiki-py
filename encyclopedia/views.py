@@ -1,8 +1,9 @@
 import logging
 import random
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
+from django.urls import reverse
 from . import util
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -63,7 +64,7 @@ def new(request):
                 })
             else:
                 util.save_entry(title, content)
-                return redirect('entry', title=title)
+                return HttpResponseRedirect(reverse("encyclopedia:index"))
         else:
             return render(request, "encyclopedia/new.html", {
                 "form": form
@@ -83,7 +84,7 @@ def edit(request, title):
             logging.info(f"form::: '{content}'")   
             if content.strip():
                 util.save_entry(title, content)
-                return redirect('entry', title=title)
+                return redirect('encyclopedia:entry', title=title)
             else:
                 form.add_error('content', 'Content cannot be empty.')
         return render(request, "encyclopedia/edit.html", {
@@ -115,7 +116,8 @@ def random_page(request):
                 "message": "No other entries found."
             })
         random_entry = random.choice(entries)
-        return redirect('entry', title=random_entry)
+        # return HttpResponseRedirect(reverse("encyclopedia:entry", args=[random_entry.lower()]))
+        return redirect('encyclopedia:entry', title=random_entry.lower())
     else:
         return render(request, "encyclopedia/error.html", {
             "message": "No entries found."
