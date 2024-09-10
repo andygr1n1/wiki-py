@@ -1,4 +1,5 @@
 {% extends "encyclopedia/layout.html" %}
+{% load custom_filters %}
 
 {% block title %}
 Encyclopedia
@@ -8,13 +9,26 @@ Encyclopedia
 
 {% if entries %}
 <h1>All Results ({{ entries|length }})</h1>
-<ul>
-    {% for entry in entries %}
-    <li><a href="{% url 'encyclopedia:entry' entry|lower %}">{{ entry|lower }}</a></li>
+
+<ul class="list-group">
+    {% for entry in entries|sort %}
+    <li class="list-group-item" style="padding: 0px;">
+        <a href="{% url 'encyclopedia:entry' entry|lower %}" class="list-group-item-action"
+            style="display: block; width: 100%; height: 100%; cursor: pointer; padding: 10px;">{{ entry|lower }}</a>
+    </li>
     {% endfor %}
 </ul>
+
+<!-- <ul class="list-group">
+    {% for entry in entries %}
+    <li class="list-group-item" style="padding: 0px;">
+        <a href="{% url 'encyclopedia:entry' entry|lower %}" class="list-group-item-action"
+            style="display: block; width: 100%; height: 100%; cursor: pointer; padding: 10px;">{{ entry|lower }}</a>
+    </li>
+    {% endfor %}
+</ul> -->
 {% else %}
-<h1>No results found.</h1>
+<h1>No results found</h1>
 {% endif %}
 
 {% endblock %}

@@ -6,7 +6,12 @@
 {% endblock %}
 
 {% block body %}
-<h1>{{ title }}</h1>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'encyclopedia:index' %}">home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+    </ol>
+</nav>
 
 <article>{{ content|markdown|safe }}</article>
 <footer><a href="{% url 'encyclopedia:edit' title %}">edit article</a></footer>

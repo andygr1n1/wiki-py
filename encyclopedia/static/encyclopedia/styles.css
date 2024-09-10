@@ -9,12 +9,16 @@ code {
 
 .row-stabilizer {
     width: calc(100%) !important;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
 }
 
 h1 {
-    color: blueviolet;
     margin-top: 0px;
     padding-top: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #343a40;
 }
 
 textarea {
@@ -40,4 +44,13 @@ textarea {
 
 .sidebar h2 {
     margin-top: 5px;
+}
+
+.list-group-item-action {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.list-group-item-action:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
 }

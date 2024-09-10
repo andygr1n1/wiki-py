@@ -35,7 +35,7 @@ def search(request):
     q = request.GET.get('q')
     content = util.get_entry(q)
     if content:
-        return redirect('entry', title=q)
+        return redirect('encyclopedia:entry', title=q)
     else:
         entries = util.list_entries()
         filtered_entries = [entry for entry in entries if q.lower() in entry.lower()]
