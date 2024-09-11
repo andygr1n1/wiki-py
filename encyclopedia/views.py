@@ -29,7 +29,9 @@ def entry(request, title):
     if content:
         return render(request, 'encyclopedia/entry.html', {'content': content, 'title': title.lower()})
     else:
-        return HttpResponse("Page not found", status=404)
+        return render(request, "encyclopedia/404.html", {
+            "message": "The requested page was not found."
+        })
 
 def search(request):
     q = request.GET.get('q')
@@ -95,7 +97,7 @@ def edit(request, title):
         logging.info(f"form>>> get request ")   
         content = util.get_entry(title)
         if content is None:
-            return render(request, "encyclopedia/error.html", {
+            return render(request, "encyclopedia/404.html", {
                 "message": "The requested page was not found."
             })
         form = NewTaskForm(initial={"title": title, "content": content})
@@ -112,13 +114,17 @@ def random_page(request):
         if current_title:
             entries = [entry for entry in entries if entry.lower() != current_title.lower()]
         if not entries:
-            return render(request, "encyclopedia/error.html", {
+            return render(request, "encyclopedia/404.html", {
                 "message": "No other entries found."
             })
         random_entry = random.choice(entries)
         # return HttpResponseRedirect(reverse("encyclopedia:entry", args=[random_entry.lower()]))
         return redirect('encyclopedia:entry', title=random_entry.lower())
     else:
-        return render(request, "encyclopedia/error.html", {
+        return render(request, "encyclopedia/404.html", {
             "message": "No entries found."
         })
+    
+
+def custom_404(request, exception):
+    return render(request, 'encyclopedia/404.html', {}, status=404)

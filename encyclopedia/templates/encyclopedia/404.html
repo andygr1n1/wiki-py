@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Page Not Found</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container text-center">
+        <h1 class="display-1">404</h1>
+        <p class="lead">Page Not Found</p>
+        <hr class="my-4">
+        <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+        </p>
+        <a class="btn btn-primary btn-lg" href="{% url 'encyclopedia:index' %}" role="button">Go to Homepage</a>
+    </div>
+</body>
+
+</html>

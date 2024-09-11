@@ -18,5 +18,9 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("encyclopedia.urls"), name="encyclopedia")
+    path('', include("encyclopedia.urls"), name="encyclopedia"),
+    path('wiki/', include('encyclopedia.urls')),
 ]
+
+
+handler404 = 'encyclopedia.views.custom_404'
